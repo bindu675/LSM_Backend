@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var AdminSchema = new Schema({
 
-EmployeeNo:{
+    employeeNo:{
     type: String,
     required:true
 },

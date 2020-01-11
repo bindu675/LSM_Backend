@@ -86,10 +86,10 @@ exports.delete_a_task = function(req, res) {
 
 exports.userSignin = (req,res,next) =>{
   // Console.log("HI")
-  const EmployeeNo = req.body.EmployeeNo;
+  const employeeNo = req.body.employeeNo;
   const password = req.body.password;
   let loadedUser;
-  UserData.findOne({EmployeeNo: EmployeeNo})
+  UserData.findOne({employeeNo: employeeNo})
   .then(user =>{
     if(!user){
       const error = new Error('A user with this Employee number could not be found.');
@@ -108,10 +108,10 @@ exports.userSignin = (req,res,next) =>{
     }
     const token = jwt.sign(
     {
-      EmployeeNo: loadedUser.EmployeeNo,
+      employeeNo: loadedUser.employeeNo,
       userId:loadedUser._id.toString()
     },'secret')
-    return res.status(200).json({token: token, userId: loadedUser._id.toString(), EmployeeNo: loadedUser.EmployeeNo})
+    return res.status(200).json({token: token, userId: loadedUser._id.toString(), employeeNo: loadedUser.employeeNo})
   })
   .catch(err => {
     if (!err.statusCode) {

@@ -4,13 +4,15 @@ var app = express();
  var mongoose = require('mongoose');
  var Leave= require('./Model/Model');
  var bodyParser = require('body-parser');
+ var cors = require('cors')
   
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Register'); 
+mongoose.connect('mongodb://localhost/Register', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }); 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 
 
 var routes = require('./Router/Router');
