@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 const UserData =require('../Model/Model');
 const bcrypt =require('bcrypt');
 const jwt = require('jsonwebtoken');
+var isAuth=require('../Middleware/isAuth')
+    
 
-exports.get_a_data = function(req, res) {
+exports.get_user = function(req, res) {
   UserData.find({}, function(err, task) {
   if (err)
     res.send(err);
     res.json(task);
   });
 };
-exports. create_a_data= function(req, res){
+exports. usersignup= function(req, res){
   const reg_email=/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
   const reg_mob=/^[0-9]{10}$/;
   const reg_pwd=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,8}$/;
@@ -36,13 +38,14 @@ exports. create_a_data= function(req, res){
       else
       {
         var userData = new UserData(req.body);
+        console.log(userData)
         bcrypt.genSalt(10, function(err, salt){
           bcrypt.hash(userData.password, salt, function(err, hash) {
             userData.password = hash;
             userData.save(function(err, data){
               if(err)
                 res.send(err.message);
-              res.json(data);
+              res.json('User Created Succesfully');
             })
           })
         })
@@ -79,3 +82,41 @@ exports.delete_a_task = function(req, res) {
   });
 };
 
+
+
+exports.userSignin = (req,res,next) =>{
+  // Console.log("HI")
+  const EmployeeNo = req.body.EmployeeNo;
+  const password = req.body.password;
+  let loadedUser;
+  UserData.findOne({EmployeeNo: EmployeeNo})
+  .then(user =>{
+    if(!user){
+      const error = new Error('A user with this Employee number could not be found.');
+      error.statusCode = 401;
+      throw error;
+    
+    }
+    loadedUser = user;
+    return bcrypt.compare(password,user.password);
+  })
+  .then(isEqual =>{
+    if(!isEqual){
+      const error = new Error('wrong password.');
+      error.statusCode = 401;
+      throw error;
+    }
+    const token = jwt.sign(
+    {
+      EmployeeNo: loadedUser.EmployeeNo,
+      userId:loadedUser._id.toString()
+    },'secret')
+    return res.status(200).json({token: token, userId: loadedUser._id.toString(), EmployeeNo: loadedUser.EmployeeNo})
+  })
+  .catch(err => {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }); 
+}
