@@ -13,25 +13,26 @@ exports.get_user = function(req, res) {
   });
 };
 exports. usersignup= function(req, res){
-  const reg_email=/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
+  const reg_EmployeeNo=/^[A-Z0-9]{4}/;
   const reg_mob=/^[0-9]{10}$/;
   const reg_pwd=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,8}$/;
   if(!reg_pwd.test(req.body.password)){
     console.log(req.body.password)
     res.send('password is invalid');
   }
-  else{
-    if(req.body.password===req.body.Confirmpassword){
+  // else{
+  //   if(req.body.password===req.body.Confirmpassword){
 
-    }else{
-      res.send("password missmatch");
-    }
-  }
+  //   }
+  // else{
+  //      res.send("password missmatch");
+  //    }
+  // }
   if(!reg_mob.test(req.body.Mobnum)){
     res.send('Mobile number is invalid');
   }
-  if(reg_email.test(req.body.email)){
-    UserData.find({email: req.body.email},function(err, data){
+  if(reg_EmployeeNo.test(req.body.EmployeeNo)){
+    UserData.find({EmployeeNo: req.body.EmployeeNo},function(err, data){
       if(data != null && data != ''){
         res.send('User already exists');
       }
@@ -39,21 +40,21 @@ exports. usersignup= function(req, res){
       {
         var userData = new UserData(req.body);
         console.log(userData)
-        bcrypt.genSalt(10, function(err, salt){
-          bcrypt.hash(userData.password, salt, function(err, hash) {
-            userData.password = hash;
+        // bcrypt.genSalt(10, function(err, salt){
+        //   bcrypt.hash(userData.password, salt, function(err, hash) {
+        //     userData.password = hash;
             userData.save(function(err, data){
               if(err)
                 res.send(err.message);
               res.json('User Created Succesfully');
             })
-          })
-        })
+          // })
+        // })
       }
     });
   }
   else {
-    res.send('Email is invalid');
+    res.send('employeeNo is invalid');
   }
 };
 
@@ -85,11 +86,11 @@ exports.delete_a_task = function(req, res) {
 
 
 exports.userSignin = (req,res,next) =>{
-  // Console.log("HI")
-  const employeeNo = req.body.employeeNo;
+  console.log(req.body)
+  const EmployeeNo = req.body.EmployeeNo;
   const password = req.body.password;
   let loadedUser;
-  UserData.findOne({employeeNo: employeeNo})
+  UserData.findOne({EmployeeNo: EmployeeNo})
   .then(user =>{
     if(!user){
       const error = new Error('A user with this Employee number could not be found.');
@@ -98,13 +99,15 @@ exports.userSignin = (req,res,next) =>{
     
     }
     loadedUser = user;
-    return bcrypt.compare(password,user.password);
+    // return bcrypt.compare(password,user.password);
+    console.log(password,user.password)
+    return (password===user.password);
   })
   .then(isEqual =>{
     if(!isEqual){
-      const error = new Error('wrong password.');
-      error.statusCode = 401;
-      throw error;
+    const error = new Error('wrong password.');
+    error.statusCode = 401;
+    throw error;
     }
     const token = jwt.sign(
     {

@@ -9,11 +9,11 @@ var app = express();
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/Register', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }); 
+mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors())
-
 
 var routes = require('./Router/Router');
 routes(app); 

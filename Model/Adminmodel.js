@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 
 var AdminSchema = new Schema({
 
-    employeeNo:{
+    EmployeeNo:{
     type: String,
     required:true
 },
-password:{
+    password:{
     type: String,
     required: true
 }

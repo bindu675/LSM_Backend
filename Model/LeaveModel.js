@@ -23,6 +23,10 @@ var LeaveSchema = new Schema({
         type: String,
         default:""
     },
+    // type:{
+    //     type:String,
+    //     required:true
+    // },
     Rleave:{
         type:String,
         default:6

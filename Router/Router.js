@@ -3,6 +3,8 @@ module.exports=(app)=>{
 const todoList1 = require('../Controller/UserController');
 const todoList2 = require('../Controller/AdminController');
 const todoList3 = require('../Controller/LeaveController');
+const todoList4 = require('../Controller/FeedController');
+const todoList5 = require('../Controller/DesktopController');
 const isAuth=require('../Middleware/isAuth')
 
     
@@ -18,14 +20,25 @@ const isAuth=require('../Middleware/isAuth')
     app.route('/admin_login')
     .post(todoList2.AdminSignin,isAuth);
 
+    //Feed
+    app.route('/Feed')
+    .post(todoList4.post)
+
+    //Desktopmodel
+    app.route('/Desktop')
+    .post(todoList5.post)
+    .get(todoList5.list_all_tasks);
+
+    app.route('/Desktop/:id')
+    .put(todoList5.update_a_task )
+    .delete(todoList5.delete_a_task);
    
      // leave
     app.route('/Leave')
-    .post(todoList3.Leave)
+    .post(todoList3.post)
     .get(todoList3.list_all_tasks);
 
-    app.route('/Leave/:LeaveId')
-    .get(todoList3.Leave)
-    .put(todoList3.Leave);
+    app.route('/Leave/:id')
+    .put(todoList3.update_a_task );
 };  
      
