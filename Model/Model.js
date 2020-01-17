@@ -29,8 +29,14 @@ Mobnum:{
 },
 leave:{
     type:Number,
-    default:06
+    default:06,
+    
 },
+// role:{
+//     type:String,
+//     default:""
+    
+// }
 });
 
 module.exports = mongoose.model('user', TaskSchema);

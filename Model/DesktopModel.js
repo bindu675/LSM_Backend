@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var employeelistSchema = new Schema({
 
-  SINO:{
+  SIno:{
     type:Number,
     required:true
   },

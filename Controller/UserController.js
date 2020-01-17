@@ -91,6 +91,7 @@ exports.userSignin = (req,res,next) =>{
   const password = req.body.password;
   let loadedUser;
   UserData.findOne({EmployeeNo: EmployeeNo})
+  
   .then(user =>{
     if(!user){
       const error = new Error('A user with this Employee number could not be found.');
@@ -99,6 +100,7 @@ exports.userSignin = (req,res,next) =>{
     
     }
     loadedUser = user;
+    console.log(loadedUser)
     // return bcrypt.compare(password,user.password);
     console.log(password,user.password)
     return (password===user.password);
@@ -114,7 +116,7 @@ exports.userSignin = (req,res,next) =>{
       employeeNo: loadedUser.employeeNo,
       userId:loadedUser._id.toString()
     },'secret')
-    return res.status(200).json({token: token, userId: loadedUser._id.toString(), employeeNo: loadedUser.employeeNo})
+    return res.status(200).json({token: token,   Firstname: loadedUser. Firstname})
   })
   .catch(err => {
     if (!err.statusCode) {
