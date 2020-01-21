@@ -5,6 +5,7 @@ const todoList2 = require('../Controller/AdminController');
 const todoList3 = require('../Controller/LeaveController');
 const todoList4 = require('../Controller/FeedController');
 const todoList5 = require('../Controller/DesktopController');
+// const todoList6 = require('../Controller/LeaveController')
 const isAuth=require('../Middleware/isAuth')
 
     
@@ -23,6 +24,8 @@ const isAuth=require('../Middleware/isAuth')
     //Feed
     app.route('/Feed')
     .post(todoList4.post)
+    .get(todoList4.list_all_tasks);
+
 
     //Desktopmodel
     app.route('/Desktop')
@@ -35,10 +38,13 @@ const isAuth=require('../Middleware/isAuth')
    
      // leave
     app.route('/Leave')
-    .post(todoList3.post)
+    .post(todoList3.applyLeave)
     .get(todoList3.list_all_tasks);
 
     app.route('/Leave/:id')
     .put(todoList3.update_a_task );
+
+    // app.route('/email')
+    // .post(todoList6.nodemailer1)
 };  
      

@@ -21,13 +21,14 @@ var LeaveSchema = new Schema({
     },
     Status: {
         type: String,
-        default:""
+        default:"pending"
     },
+    // Email: {
+    //     type: String,
+    //     required: 'Please Enter valid emailId'
+    //     },
     
-    // type:{
-    //     type:String,
-    //     required:true
-    // },
+
     Rleave:{
         type:String,
         default:6
@@ -35,3 +36,25 @@ var LeaveSchema = new Schema({
 });
 
 module.exports = mongoose.model('Leave', LeaveSchema);
+
+
+
+
+// var mongoose = require('mongoose');
+// var Schema = mongoose.Schema;
+
+
+// var EmailSchema = new Schema({
+
+// Email: {
+// type: String,
+// required: 'Please Enter valid emailId'
+// }
+// // Password: {
+// // type: String,
+// // required: 'Please Enter the current password'
+// // }
+
+// });
+
+// module.exports = mongoose.model('nodemailer', EmailSchema);
