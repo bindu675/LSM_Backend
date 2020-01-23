@@ -3,13 +3,13 @@ var Schema = mongoose.Schema;
 
 var LeaveSchema = new Schema({
 
-    employeeName:{
-        type:String,
-        required:true
+    employeeName: {
+        type: String,
+        required: true
     },
-    empid:{
-        type:String,
-        required:true
+    empid: {
+        type: String,
+        required: true
     },
     Reason: {
         type: String,
@@ -19,19 +19,23 @@ var LeaveSchema = new Schema({
         type: Number,
         required: true
     },
+    type:{
+        type: String,
+        
+    },
+
     Status: {
         type: String,
-        default:"pending"
+        default: "pending"
     },
-    // Email: {
-    //     type: String,
-    //     required: 'Please Enter valid emailId'
-    //     },
-    
+    Email: {
+        type: String,
+        required: 'Please Enter valid emailId'
+    },
 
-    Rleave:{
-        type:String,
-        default:6
+    Rleave: {
+        type: String,
+        default: 6
     }
 });
 

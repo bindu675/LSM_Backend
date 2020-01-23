@@ -5,7 +5,7 @@ const todoList2 = require('../Controller/AdminController');
 const todoList3 = require('../Controller/LeaveController');
 const todoList4 = require('../Controller/FeedController');
 const todoList5 = require('../Controller/DesktopController');
-// const todoList6 = require('../Controller/LeaveController')
+// const todoList6 = require('../Controller/EmailController');
 const isAuth=require('../Middleware/isAuth')
 
     
@@ -44,7 +44,6 @@ const isAuth=require('../Middleware/isAuth')
     app.route('/Leave/:id')
     .put(todoList3.update_a_task );
 
-    // app.route('/email')
-    // .post(todoList6.nodemailer1)
+   
 };  
      
