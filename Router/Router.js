@@ -39,10 +39,16 @@ const isAuth=require('../Middleware/isAuth')
      // leave
     app.route('/Leave')
     .post(todoList3.applyLeave)
-    .get(todoList3.list_all_tasks);
+    .get(todoList3.list_all_tasks)
+    .put(todoList3.changedetails)
+
+
 
     app.route('/Leave/:id')
     .put(todoList3.update_a_task );
+
+    app.route('/reset')
+   .put(todoList1.changepassword)
 
    
 };  

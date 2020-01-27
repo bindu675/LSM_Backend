@@ -17,11 +17,11 @@ var LeaveSchema = new Schema({
     },
     No_of_days: {
         type: Number,
-        required: true
+        default:null
     },
     type:{
         type: String,
-        
+        required: true
     },
 
     Status: {
@@ -33,32 +33,10 @@ var LeaveSchema = new Schema({
         required: 'Please Enter valid emailId'
     },
 
-    Rleave: {
+    balance: {
         type: String,
-        default: 6
+        default: null
     }
 });
 
 module.exports = mongoose.model('Leave', LeaveSchema);
-
-
-
-
-// var mongoose = require('mongoose');
-// var Schema = mongoose.Schema;
-
-
-// var EmailSchema = new Schema({
-
-// Email: {
-// type: String,
-// required: 'Please Enter valid emailId'
-// }
-// // Password: {
-// // type: String,
-// // required: 'Please Enter the current password'
-// // }
-
-// });
-
-// module.exports = mongoose.model('nodemailer', EmailSchema);

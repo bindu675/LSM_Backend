@@ -32,11 +32,6 @@ leave:{
     default:06,
     
 },
-// role:{
-//     type:String,
-//     default:""
-    
-// }
 });
 
 module.exports = mongoose.model('user', TaskSchema);

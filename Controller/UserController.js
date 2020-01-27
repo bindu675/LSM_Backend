@@ -20,6 +20,7 @@ exports. usersignup= function(req, res){
     console.log(req.body.password)
     res.send('password is invalid');
   }
+  
   // else{
   //   if(req.body.password===req.body.Confirmpassword){
 
@@ -83,7 +84,14 @@ exports.delete_a_task = function(req, res) {
   });
 };
 
-
+exports.changepassword = (req, res)=> {
+  console.log(req.body)
+  UserData.findOneAndUpdate({EmployeeNo: req.body.EmployeeNo}, req.body, {new: true}, function(err, task) {
+  if (err)
+  res.send(err);
+  res.json(task);
+  });
+  };
 
 exports.userSignin = (req,res,next) =>{
   console.log(req.body)

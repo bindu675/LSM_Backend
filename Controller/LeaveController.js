@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const nodemailer =require ('nodemailer');
+const nodemailer = require('nodemailer');
 const User = require('../Model/LeaveModel');
 
 exports.list_all_tasks = function (req, res) {
@@ -19,14 +19,18 @@ exports.update_a_task = function (req, res) {
   });
 };
 
+exports.post = (req, res, next) => {
+  console.log("hai", req.body);
+  var leavem = new User(req.body);
+  leavem.save(function (err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
 
-
+  })
+}
 exports.applyLeave = (req, res, next) => {
-   var mail = new User(req.body);
-   //mail.save(function(err, data){
-//   // if(err)
-//   // res.send(err.message);
-//   // res.json(data);
+  var mail = new User(req.body);
   var transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -61,16 +65,15 @@ exports.applyLeave = (req, res, next) => {
   )
 }
 
-
-//   console.log("hai", req.body);
-//   var Leavem = new User(req.body);
-//   Leavem.save(function (err, data) {
-//     if (err)
-//       res.send(err);
-//     res.json(data);
-//   })
-// }
-
+exports.changedetails= (req, res)=> {
+  console.log(req.body)
+  User.findOneAndUpdate({Email: req.body.Email}, req.body, {new: true}, function(err, task) {
+  if (err)
+  res.send(err);
+  res.json(task);
+  });
+  };
+  
 
 
 
