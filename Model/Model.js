@@ -26,12 +26,8 @@ email:{
 Mobnum:{
     type: Number,
     required: true
-},
-leave:{
-    type:Number,
-    default:06,
-    
-},
+}
+
 });
 
 module.exports = mongoose.model('user', TaskSchema);

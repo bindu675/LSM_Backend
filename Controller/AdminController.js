@@ -7,8 +7,6 @@ var isAuth = require('../Middleware/isAuth')
 
 
 exports.addAdmin = function (req, res) {
-  // const reg_email=/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
-  // const reg_mob=/^[0-9]{10}$/;
   const reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,8}$/;
   if (!reg_pwd.test(req.body.password)) {
     console.log(req.body.password)
@@ -29,22 +27,28 @@ exports.addAdmin = function (req, res) {
     else {
       var userData = new UserData(req.body);
       console.log(userData)
-      // bcrypt.genSalt(10, function(err, salt){
-      //   bcrypt.hash(userData.password, salt, function(err, hash) {
-      //     userData.password = hash;
       userData.save(function (err, data) {
         if (err)
           res.send(err.message);
         res.json('User Created Succesfully');
       })
-      // })
-      // })
     }
   });
 
 };
 
-exports.AdminSignin = (req, res, next) => {
+exports.changepassword = (req, res) => {
+  console.log(req.body)
+  const pword = cryptr.encrypt(req.body.password);
+  req.body.password = pword;
+  UserData.findOneAndUpdate({ EmployeeNo: req.body.EmployeeNo }, req.body, { new: true }, function (err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
+  });
+};
+
+exports.AdminSignin = (req, res) => {
   const EmployeeNo = req.body.EmployeeNo;
   const password = req.body.password;
   let loadedUser;
@@ -77,6 +81,6 @@ exports.AdminSignin = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
-      next(err);
+     
     });
 }

@@ -65,15 +65,15 @@ exports.applyLeave = (req, res, next) => {
   )
 }
 
-exports.changedetails= (req, res)=> {
+exports.changedetails = (req, res) => {
   console.log(req.body)
-  User.findOneAndUpdate({Email: req.body.Email}, req.body, {new: true}, function(err, task) {
-  if (err)
-  res.send(err);
-  res.json(task);
+  User.findOneAndUpdate({ Email: req.body.Email }, req.body, { new: true }, function (err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
   });
-  };
-  
+};
+
 
 
 

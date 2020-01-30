@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 
 var FeedSchema = new Schema({
 
-    feedtext:{
-        type:String,
-        required:true
+    feedtext: {
+        type: String,
+        required: true
     }
-  });
+});
 
-  module.exports = mongoose.model('Feed', FeedSchema);
+module.exports = mongoose.model('Feed', FeedSchema);

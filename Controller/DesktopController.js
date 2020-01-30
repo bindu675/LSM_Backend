@@ -1,13 +1,5 @@
-// const mongoose = require('mongoose');
-// const UserData =require('../Model/DesktopModel');
-// const bcrypt =require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// var isAuth=require('../Middleware/isAuth')
 const mongoose = require('mongoose');
 const User = require('../Model/DesktopModel');
-
-// const mongoose = require('mongoose');
-// const User =require('../Model/LeaveModel');
 
 exports.list_all_tasks = function (req, res) {
   User.find({}, function (err, desktop) {
@@ -25,8 +17,6 @@ exports.update_a_task = function (req, res) {
     res.json(data);
   });
 };
-
-
 
 exports.post = (req, res, next) => {
   console.log("hai", req.body);

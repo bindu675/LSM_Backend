@@ -3,6 +3,11 @@ var Schema = mongoose.Schema;
 
 var LeaveSchema = new Schema({
 
+    SIno: {
+        type: Number,
+        required: true
+    },
+
     employeeName: {
         type: String,
         required: true
@@ -17,14 +22,14 @@ var LeaveSchema = new Schema({
     },
     No_of_days: {
         type: Number,
-        default:null
+        default: null
     },
-    type:{
+    type: {
         type: String,
         required: true
     },
 
-    Status: {
+    Action: {
         type: String,
         default: "pending"
     },
@@ -36,6 +41,11 @@ var LeaveSchema = new Schema({
     balance: {
         type: String,
         default: null
+    },
+    leave: {
+        type: Number,
+        default: 06,
+
     }
 });
 
